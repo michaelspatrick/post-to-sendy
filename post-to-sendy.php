@@ -1,7 +1,7 @@
 <?php
 /*
  * Plugin Name: Post to Sendy
- * Plugin URI: https://github.com/toritejutsu/post-to-sendy
+ * Plugin URI: https://github.com/michaelspatrick/post-to-sendy
  * Description: Automatically schedules and sends WordPress posts to your Sendy mailing list.
  * Version: 1.2.1
  * Author: Michael Patrick
@@ -9,7 +9,6 @@
  * License: GPL2+
  * License URI: https://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain: post-to-sendy
- * Domain Path: /languages
  */
 
 defined('ABSPATH') || exit;

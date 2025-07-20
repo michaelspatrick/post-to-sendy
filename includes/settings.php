@@ -23,7 +23,7 @@ class PostToSendy_Settings {
         $this->options = get_option('post2sendy_options');
         ?>
         <div class="wrap">
-            <h1><?php _e('Post to Sendy Settings', 'post-to-sendy'); ?></h1>
+            <h1><?php esc_html_e('Post to Sendy Settings', 'post-to-sendy'); ?></h1>
             <form method="post" action="options.php">
                 <?php
                 settings_fields('post2sendy_option_group');

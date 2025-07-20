@@ -25,9 +25,10 @@ function post2sendy_meta_box_markup($post) {
 
     wp_nonce_field('post2sendy_meta_box', 'post2sendy_meta_box_nonce');
     ?>
-    <p><label><input type="radio" name="post2sendy_radio" value="Never" <?php checked($selected, 'Never'); ?> /> <?php _e('Never', 'post-to-sendy'); ?></label></p>
-    <p><label><input type="radio" name="post2sendy_radio" value="Optimal" <?php checked($selected, 'Optimal'); ?> /> <?php _e('Optimal time', 'post-to-sendy'); ?> <em>(<?php echo esc_html($optimal); ?>)</em></label></p>
-    <p><label><input type="radio" name="post2sendy_radio" value="Custom" <?php checked($selected, 'Custom'); ?> /> <?php _e('Custom date/time', 'post-to-sendy'); ?></label></p>
+    <p><label><input type="radio" name="post2sendy_radio" value="Never" <?php checked($selected, 'Never'); ?> /> <?php esc_html_e('Never', 'post-to-sendy'); ?></label></p>
+    <p><label><input type="radio" name="post2sendy_radio" value="Optimal" <?php checked($selected, 'Optimal'); ?> /> <?php esc_html_e('Optimal time', 'post-to-sendy'); ?> <em>
+(<?php echo esc_html($optimal); ?>)</em></label></p>
+    <p><label><input type="radio" name="post2sendy_radio" value="Custom" <?php checked($selected, 'Custom'); ?> /> <?php esc_html_e('Custom date/time', 'post-to-sendy'); ?></label></p>
     <p>
         <input type="date" name="post2sendy_date" value="<?php echo esc_attr($custom_date); ?>" />
         <input type="time" name="post2sendy_time" value="<?php echo esc_attr($custom_time); ?>" />
@@ -36,15 +37,24 @@ function post2sendy_meta_box_markup($post) {
 }
 
 function post2sendy_save_post_meta($post_id) {
-    if (!isset($_POST['post2sendy_meta_box_nonce']) || !wp_verify_nonce($_POST['post2sendy_meta_box_nonce'], 'post2sendy_meta_box')) {
+    if (
+        !isset($_POST['post2sendy_meta_box_nonce']) || !wp_verify_nonce(
+            sanitize_text_field(wp_unslash($_POST['post2sendy_meta_box_nonce'])),
+            'post2sendy_meta_box'
+        )
+    ) {
         return;
     }
 
     if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
     if (!current_user_can('edit_post', $post_id)) return;
 
-    update_post_meta($post_id, 'post2sendy_radio', sanitize_text_field($_POST['post2sendy_radio'] ?? ''));
-    update_post_meta($post_id, 'post2sendy_date', sanitize_text_field($_POST['post2sendy_date'] ?? ''));
-    update_post_meta($post_id, 'post2sendy_time', sanitize_text_field($_POST['post2sendy_time'] ?? ''));
+    $radio = isset($_POST['post2sendy_radio']) ? sanitize_text_field(wp_unslash($_POST['post2sendy_radio'])) : '';
+    $date  = isset($_POST['post2sendy_date'])  ? sanitize_text_field(wp_unslash($_POST['post2sendy_date']))  : '';
+    $time  = isset($_POST['post2sendy_time'])  ? sanitize_text_field(wp_unslash($_POST['post2sendy_time']))  : '';
+
+    update_post_meta($post_id, 'post2sendy_radio', $radio);
+    update_post_meta($post_id, 'post2sendy_date', $date);
+    update_post_meta($post_id, 'post2sendy_time', $time);
 }
 add_action('save_post', 'post2sendy_save_post_meta');

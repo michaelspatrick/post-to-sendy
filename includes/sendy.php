@@ -24,9 +24,9 @@ function get_optimal_post_datetime() {
     $timestamp = current_time('timestamp');
     do {
         $timestamp += 3600; // add 1 hour
-        $new_day = (int) date('w', $timestamp);
-        $new_hour = (int) date('G', $timestamp);
+        $new_day = (int) wp_date('w', $timestamp);
+        $new_hour = (int) wp_date('G', $timestamp);
     } while (!(in_array($new_day, $preferred_days) && in_array($new_hour, $preferred_hours)));
 
-    return date('Y-m-d H:i:s', $timestamp);
+    return wp_date('Y-m-d H:i:s', $timestamp);
 }
