@@ -28,4 +28,4 @@ GPLv2 or later. Free for commercial or private use.
 
 ---
 
-Made with ❤️ by Michael Patrick for [Dragon Society International](https://www.dragonsociety.com)
+Made by Michael Patrick
