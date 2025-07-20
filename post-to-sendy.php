@@ -3,7 +3,7 @@
  * Plugin Name: Post to Sendy
  * Plugin URI: https://github.com/michaelspatrick/post-to-sendy
  * Description: Automatically schedules and sends WordPress posts to your Sendy mailing list.
- * Version: 1.2.1
+ * Version: 1.0
  * Author: Michael Patrick
  * Author URI: https://www.dragonsociety.com
  * License: GPL2+
